@@ -118,5 +118,12 @@ namespace Simple3DViewport
 
             myVP.setBackgroundColor(Color.FromRgb(colorR, colorG, colorB));
         }
+
+        private void menu_changeOpacity(object sender, RoutedEventArgs e)
+        {
+            Random rnd = new Random();
+            myVP.setOpacityByLabel(rnd.NextDouble(), "RANDOM");
+            myVP.render();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media.Media3D;
 
@@ -95,6 +96,37 @@ namespace Simple3DViewport.Objects
                 if (mesh.Labels.Contains(label))
                 {
                     Meshes.Remove(mesh);
+                }
+            }
+        }
+
+        public void setOpacityById(double opacity, string meshId)
+        {
+            for (int i = Meshes.Count - 1; i >= 0; i--)
+            {
+                SimpleMesh mesh = Meshes[i];
+                if (mesh.MeshId == meshId)
+                {
+                    try
+                    {
+                        ((DiffuseMaterial)mesh.Geometry.Material).Brush.Opacity = opacity;
+                    }
+                    catch (Exception e) { }
+                }
+            }
+        }
+        public void setOpacityByLabel(double opacity, string label)
+        {
+            for (int i = Meshes.Count - 1; i >= 0; i--)
+            {
+                SimpleMesh mesh = Meshes[i];
+                if (mesh.Labels.Contains(label))
+                {
+                    try
+                    {
+                        ((DiffuseMaterial)mesh.Geometry.Material).Brush.Opacity = opacity;
+                    }
+                    catch (Exception e) { }
                 }
             }
         }

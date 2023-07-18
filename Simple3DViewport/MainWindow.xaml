@@ -12,6 +12,7 @@
             <MenuItem Header="Add item" Click="menu_addItem" />
             <MenuItem Header="Remove items" Click="menu_removeItems" />
             <MenuItem Header="Change background color" Click="menu_changeBackgroundColor" />
+            <MenuItem Header="Change opacity" Click="menu_changeOpacity" />
         </Menu>
         <Grid Background="LightSlateGray">
 

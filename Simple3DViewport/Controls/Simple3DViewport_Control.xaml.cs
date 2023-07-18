@@ -199,7 +199,7 @@ namespace Simple3DViewport.Controls
             phi -= rX * 0.01;
             length *= 1.0 - 0.1 * rZ;
 
-            theta = Math.Clamp(theta, 0.0001, Math.PI - 0001);
+            theta = Math.Clamp(theta, 0.0001, Math.PI - 0.0001);
 
             vector.X = length * Math.Sin(theta) * Math.Cos(phi);
             vector.Z = -length * Math.Sin(theta) * Math.Sin(phi);
@@ -258,6 +258,25 @@ namespace Simple3DViewport.Controls
             }
             render();
         }
+
+        // Only applies to diffuse materials
+        public void setOpacityById(double opacity, string itemId)
+        {
+            foreach (SimpleModel model in VPModels)
+            {
+                model.setOpacityById(opacity, itemId);
+            }
+            render();
+        }
+        public void setOpacityByLabel(double opacity, string label)
+        {
+            foreach (SimpleModel model in VPModels)
+            {
+                model.setOpacityByLabel(opacity, label);
+            }
+            render();
+        }
+
         public void setBackgroundColor(Color color)
         {
             SolidColorBrush brush = new SolidColorBrush(color);
