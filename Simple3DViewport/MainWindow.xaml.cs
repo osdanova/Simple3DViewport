@@ -34,6 +34,7 @@ namespace Simple3DViewport
             meshEllipsoid.Labels.Add("CONE");
 
             SimpleModel model = new SimpleModel(new List<SimpleMesh> { meshCube, meshSphere, meshCapsule, meshEllipsoid, meshCylinder, meshCone });
+            model.ModelId = "MODEL";
 
             myVP = new Simple3DViewport_Control(new List<SimpleModel> { model });
 

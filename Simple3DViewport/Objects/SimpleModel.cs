@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Media.Media3D;
 
 namespace Simple3DViewport.Objects
@@ -100,13 +99,43 @@ namespace Simple3DViewport.Objects
             }
         }
 
-        public void setOpacityById(double opacity, string meshId)
+        public void setOpacityById(double opacity, string itemId)
         {
-            for (int i = Meshes.Count - 1; i >= 0; i--)
+            if (ModelId == itemId)
             {
-                SimpleMesh mesh = Meshes[i];
-                if (mesh.MeshId == meshId)
+                for (int i = Meshes.Count - 1; i >= 0; i--)
                 {
+                    SimpleMesh mesh = Meshes[i];
+                        try
+                        {
+                            ((DiffuseMaterial)mesh.Geometry.Material).Brush.Opacity = opacity;
+                        }
+                        catch (Exception e) { }
+                }
+            }
+            else
+            {
+                for (int i = Meshes.Count - 1; i >= 0; i--)
+                {
+                    SimpleMesh mesh = Meshes[i];
+                    if (mesh.MeshId == itemId)
+                    {
+                        try
+                        {
+                            ((DiffuseMaterial)mesh.Geometry.Material).Brush.Opacity = opacity;
+                        }
+                        catch (Exception e) { }
+                    }
+                }
+            }
+        }
+        public void setOpacityByLabel(double opacity, string label)
+        {
+            if (Labels.Contains(label))
+            {
+                for (int i = Meshes.Count - 1; i >= 0; i--)
+                {
+                    SimpleMesh mesh = Meshes[i];
                     try
                     {
                         ((DiffuseMaterial)mesh.Geometry.Material).Brush.Opacity = opacity;
@@ -114,19 +143,19 @@ namespace Simple3DViewport.Objects
                     catch (Exception e) { }
                 }
             }
-        }
-        public void setOpacityByLabel(double opacity, string label)
-        {
-            for (int i = Meshes.Count - 1; i >= 0; i--)
+            else
             {
-                SimpleMesh mesh = Meshes[i];
-                if (mesh.Labels.Contains(label))
+                for (int i = Meshes.Count - 1; i >= 0; i--)
                 {
-                    try
+                    SimpleMesh mesh = Meshes[i];
+                    if (mesh.Labels.Contains(label))
                     {
-                        ((DiffuseMaterial)mesh.Geometry.Material).Brush.Opacity = opacity;
+                        try
+                        {
+                            ((DiffuseMaterial)mesh.Geometry.Material).Brush.Opacity = opacity;
+                        }
+                        catch (Exception e) { }
                     }
-                    catch (Exception e) { }
                 }
             }
         }
