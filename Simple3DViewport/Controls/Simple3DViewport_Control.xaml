@@ -7,11 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Background="#222222"
-             MouseWheel="Viewport_MouseWheel"
-             MouseMove="Viewport_MouseMove"
-             MouseRightButtonDown="Viewport_MouseRightButtonDown"
-             MouseRightButtonUp="Viewport_MouseRightButtonUp">
+    <Grid x:Name="viewportBackground"
+          Background="#222222"
+          MouseWheel="Viewport_MouseWheel"
+          MouseMove="Viewport_MouseMove"
+          MouseRightButtonDown="Viewport_MouseRightButtonDown"
+          MouseRightButtonUp="Viewport_MouseRightButtonUp">
         
         <!--<ContentControl x:Name="viewportFrame"/>-->
         <Viewport3D x:Name="viewportFrame"/>

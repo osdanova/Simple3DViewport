@@ -23,11 +23,17 @@ namespace Simple3DViewport
             SimpleMesh meshSphere = new SimpleMesh(GeometryShapes.getSphere(2, 10, new Vector3D(5, 0, 0), Color.FromRgb(0, 255, 0)));
             meshSphere.Labels.Add("SPHERE");
             SimpleMesh meshCapsule = new SimpleMesh(GeometryShapes.getCapsule(2, 3, 10, new Vector3D(-5, 0, 0), Color.FromRgb(0, 0, 255)));
-            meshSphere.Labels.Add("CAPSULE");
-            SimpleMesh meshSphere2 = new SimpleMesh(GeometryShapes.getSphere(2, 10, new Vector3D(0, -5, 0), Color.FromRgb(255, 255, 0)));
-            meshSphere2.Labels.Add("SPHERE");
+            meshCapsule.Labels.Add("CAPSULE");
+            /*SimpleMesh meshSphere2 = new SimpleMesh(GeometryShapes.getSphere(2, 10, new Vector3D(0, -5, 0), Color.FromRgb(255, 255, 0)));
+            meshSphere2.Labels.Add("SPHERE");*/
+            SimpleMesh meshEllipsoid = new SimpleMesh(GeometryShapes.getEllipsoid(2, 3, 10, new Vector3D(0, 0, -5), Color.FromRgb(255, 255, 0)));
+            meshEllipsoid.Labels.Add("ELLIPSOID");
+            SimpleMesh meshCylinder = new SimpleMesh(GeometryShapes.getCylinder(2, 3, 10, new Vector3D(0, -5, 0), Color.FromRgb(255, 0, 255)));
+            meshEllipsoid.Labels.Add("CYLINDER");
+            SimpleMesh meshCone = new SimpleMesh(GeometryShapes.getCone(2, 3, 10, new Vector3D(0, 0, 5), Color.FromRgb(0, 255, 255)));
+            meshEllipsoid.Labels.Add("CONE");
 
-            SimpleModel model = new SimpleModel(new List<SimpleMesh> { meshCube, meshSphere, meshCapsule,meshSphere2 });
+            SimpleModel model = new SimpleModel(new List<SimpleMesh> { meshCube, meshSphere, meshCapsule, meshEllipsoid, meshCylinder, meshCone });
 
             myVP = new Simple3DViewport_Control(new List<SimpleModel> { model });
 
@@ -39,7 +45,7 @@ namespace Simple3DViewport
             Random rnd = new Random();
 
             // Shape
-            int shape = rnd.Next(1, 4);
+            int shape = rnd.Next(1, 6);
 
             // Position
             float posX = (float)rnd.NextDouble() * 20;
@@ -77,11 +83,19 @@ namespace Simple3DViewport
             {
                 mesh = new SimpleMesh(GeometryShapes.getCapsule(size, 3, 10, new Vector3D(posX, posY, posZ), Color.FromArgb(colorA, colorR, colorG, colorB)));
             }
+            else if (shape == 4)
+            {
+                mesh = new SimpleMesh(GeometryShapes.getCylinder(size, 3, 10, new Vector3D(posX, posY, posZ), Color.FromArgb(colorA, colorR, colorG, colorB)));
+            }
+            else if (shape == 5)
+            {
+                mesh = new SimpleMesh(GeometryShapes.getCone(size, 3, 10, new Vector3D(posX, posY, posZ), Color.FromArgb(colorA, colorR, colorG, colorB)));
+            }
             mesh.Labels.Add("RANDOM");
 
-            Viewport3DUtils.applyTransform(mesh.Geometry, mrotX);
-            Viewport3DUtils.applyTransform(mesh.Geometry, mrotY);
-            Viewport3DUtils.applyTransform(mesh.Geometry, mrotZ);
+            Simple3DUtils.applyTransform(mesh.Geometry, mrotX);
+            Simple3DUtils.applyTransform(mesh.Geometry, mrotY);
+            Simple3DUtils.applyTransform(mesh.Geometry, mrotZ);
 
             SimpleModel model = new SimpleModel(new List<SimpleMesh> { mesh });
 
@@ -93,6 +107,16 @@ namespace Simple3DViewport
         {
             myVP.removeItemByLabel("RANDOM");
             myVP.render();
+        }
+
+        private void menu_changeBackgroundColor(object sender, RoutedEventArgs e)
+        {
+            Random rnd = new Random();
+            byte colorR = (byte)rnd.Next(0, 100);
+            byte colorG = (byte)rnd.Next(0, 100);
+            byte colorB = (byte)rnd.Next(0, 100);
+
+            myVP.setBackgroundColor(Color.FromRgb(colorR, colorG, colorB));
         }
     }
 }

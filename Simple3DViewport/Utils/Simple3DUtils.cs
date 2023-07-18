@@ -8,7 +8,7 @@ using System.Windows.Media.Media3D;
 
 namespace Simple3DViewport.Utils
 {
-    public class Viewport3DUtils
+    public class Simple3DUtils
     {
         /*
          * DEFAULT STRUCTURES
@@ -46,7 +46,7 @@ namespace Simple3DViewport.Utils
             model.Meshes.Add(new SimpleMesh(GeometryShapes.getCube(size.Value, new Vector3D(), Color.FromRgb(200, 200, 200))));
             model.Meshes.Add(new SimpleMesh(GeometryShapes.getVector(Matrix4x4.CreateFromAxisAngle(new Vector3(1, 0, 0), (float)(Math.PI / 2)), size.Value * 5, size.Value / 2, Color.FromRgb(255, 0, 0))));
             model.Meshes.Add(new SimpleMesh(GeometryShapes.getVector(Matrix4x4.CreateFromAxisAngle(new Vector3(0, 1, 0), (float)(Math.PI / 2)), size.Value * 5, size.Value / 2, Color.FromRgb(0, 0, 255))));
-            model.Meshes.Add(new SimpleMesh(GeometryShapes.getVector(Matrix4x4.CreateFromAxisAngle(new Vector3(0, 0, 1), (float)(Math.PI / 2)), size.Value * 5, size.Value / 2, Color.FromRgb(0, 255, 0))));
+            model.Meshes.Add(new SimpleMesh(GeometryShapes.getVector(Matrix4x4.CreateFromAxisAngle(new Vector3(0, 0, 1), - (float)(Math.PI / 2)), size.Value * 5, size.Value / 2, Color.FromRgb(0, 255, 0))));
 
             return model;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Simple3DViewport.Objects;
 using Simple3DViewport.Utils;
@@ -39,10 +40,10 @@ namespace Simple3DViewport.Controls
             restartCamera();
 
             // LIGHTNING
-            VPLight = Viewport3DUtils.getDefaultLightning();
+            VPLight = Simple3DUtils.getDefaultLightning();
 
             // ORIGIN
-            VPOriginVisual = Viewport3DUtils.getOriginSimpleModel();
+            VPOriginVisual = Simple3DUtils.getOriginSimpleModel();
             viewportFrame.Children.Add(VPOriginVisual.getVisual());
 
             // RENDER
@@ -60,10 +61,10 @@ namespace Simple3DViewport.Controls
             if(vpCamera == null) restartCamera();
 
             // LIGHTNING
-            VPLight = Viewport3DUtils.getDefaultLightning();
+            VPLight = Simple3DUtils.getDefaultLightning();
 
             // ORIGIN
-            VPOriginVisual = Viewport3DUtils.getOriginSimpleModel();
+            VPOriginVisual = Simple3DUtils.getOriginSimpleModel();
             viewportFrame.Children.Add(VPOriginVisual.getVisual());
 
             // RENDER
@@ -75,7 +76,7 @@ namespace Simple3DViewport.Controls
         {
             double scale = 0.3;
             Point3D position = VPCamera.Position;
-            Vector3D lookVector = Viewport3DUtils.getVectorToTarget(VPCamera.Position, AnchorPoint);
+            Vector3D lookVector = Simple3DUtils.getVectorToTarget(VPCamera.Position, AnchorPoint);
             double length = lookVector.Length;
             lookVector.Normalize();
 
@@ -115,8 +116,8 @@ namespace Simple3DViewport.Controls
             AnchorPointTemp = new Point3D(AnchorPoint.X, AnchorPoint.Y, AnchorPoint.Z);
 
             Point3D position = VPCamera.Position;
-            AnchorPointHorVec = Viewport3DUtils.getHorizontalPerpendicularVector(new Vector3D(position.X - AnchorPoint.X, position.Y - AnchorPoint.Y, position.Z - AnchorPoint.Z));
-            AnchorPointVerVec = Viewport3DUtils.getVerticalPerpendicularVector(new Vector3D(position.X - AnchorPoint.X, position.Y - AnchorPoint.Y, position.Z - AnchorPoint.Z), AnchorPointHorVec);
+            AnchorPointHorVec = Simple3DUtils.getHorizontalPerpendicularVector(new Vector3D(position.X - AnchorPoint.X, position.Y - AnchorPoint.Y, position.Z - AnchorPoint.Z));
+            AnchorPointVerVec = Simple3DUtils.getVerticalPerpendicularVector(new Vector3D(position.X - AnchorPoint.X, position.Y - AnchorPoint.Y, position.Z - AnchorPoint.Z), AnchorPointHorVec);
         }
         private void Viewport_MouseRightButtonUp(object sender, MouseEventArgs e)
         {
@@ -137,12 +138,12 @@ namespace Simple3DViewport.Controls
                         geometries.Add(mesh.Geometry);
                     }
                 }
-                Rect3D boundingBox = Viewport3DUtils.getBoundingBox(geometries);
-                VPCamera = Viewport3DUtils.getCameraByBoundingBox(boundingBox);
+                Rect3D boundingBox = Simple3DUtils.getBoundingBox(geometries);
+                VPCamera = Simple3DUtils.getCameraByBoundingBox(boundingBox);
             }
             else
             {
-                VPCamera = Viewport3DUtils.getDefaultCamera(10);
+                VPCamera = Simple3DUtils.getDefaultCamera(10);
             }
 
             viewportFrame.Camera = VPCamera;
@@ -205,7 +206,7 @@ namespace Simple3DViewport.Controls
             vector.Y = length * Math.Cos(theta);
 
             VPCamera.Position = new Point3D(AnchorPoint.X + vector.X, AnchorPoint.Y + vector.Y, AnchorPoint.Z + vector.Z);
-            VPCamera.LookDirection = Viewport3DUtils.getVectorToTarget(VPCamera.Position, AnchorPoint);
+            VPCamera.LookDirection = Simple3DUtils.getVectorToTarget(VPCamera.Position, AnchorPoint);
         }
 
         public void setVisibilityById(bool visibility, string itemId)
@@ -256,6 +257,11 @@ namespace Simple3DViewport.Controls
                 }
             }
             render();
+        }
+        public void setBackgroundColor(Color color)
+        {
+            SolidColorBrush brush = new SolidColorBrush(color);
+            viewportBackground.Background = brush;
         }
     }
 }
