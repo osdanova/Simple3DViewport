@@ -8,7 +8,7 @@ using System.Windows.Media.Media3D;
 
 namespace Simple3DViewport.Utils
 {
-    internal class Viewport3DUtils
+    public class Viewport3DUtils
     {
         /*
          * DEFAULT STRUCTURES
